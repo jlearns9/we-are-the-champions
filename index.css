@@ -46,19 +46,34 @@ img {
     width: 90px;
 }
 
-textarea {
+.inputs-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+}
+
+input {
+    width: 150px;
+    
+}
+
+input, textarea {
     border: none;
     border-radius: 8px;
     background: #444059;
     color: white;
     font-family: "Inter", "sans-serif";
-    height: 118px;
     margin-bottom: 10px;
     padding: 12px 15px;
+}
+
+textarea {
+    height: 118px;
     width: 320px;
 }
 
-textarea, button {
+textarea, button, input {
     box-sizing: border-box;
 }
 
@@ -73,3 +88,7 @@ button {
     width: 320px;
 }
 
+.bold-text {
+    font-weight: 700;
+    padding: 4px 0;
+}

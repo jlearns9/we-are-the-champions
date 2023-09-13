@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
-// Database
+// My Firebbase Database
 const appSettings = {
     databaseURL: "https://champions-db-2e2e9-default-rtdb.firebaseio.com/"
 }
@@ -21,49 +21,50 @@ const fromFieldEl = document.getElementById("from-field")
 
 // Publish Button
 publishButtonEl.addEventListener("click", function() {
-    let inputValue = inputFieldEl.value.trim()
+    let inputValue = inputFieldEl.value.trim()  // Grabbing the values from all the input fields
     let toValue = toFieldEl.value.trim()
-    let fromValue = fromFieldEl.value.trim()
-    if (inputValue === "" || toValue === "" || fromValue === "") {
+    let fromValue = fromFieldEl.value.trim()  
+    if (inputValue === "" || toValue === "" || fromValue === "") {  // Error message
         alert("Error: All fields must be filed")
         return
     }
-    let endorsement = {
+    let endorsement = {  // Creating an object from the input fields
         message: inputValue,
         to: toValue,
         from: fromValue
     }
-    push(endorsementListInDB, endorsement)
+    push(endorsementListInDB, endorsement)  // Sends object to firebase
     clearInputFieldEl()
 })
 
 // Database Listener
 onValue(endorsementListInDB, function(snapshot) {
-    if (snapshot.exists()) {
-        let itemsArray = Object.entries(snapshot.val())
+    if (snapshot.exists()) {  // Checking for firebase entries
+        let itemsArray = Object.entries(snapshot.val())  // Turns our items into an array
         clearEndorsementListEl()
         for (let i = 0; i < itemsArray.length; i++) {
             let currentItem = itemsArray[i]
             appendItemToEndorsementListEl(currentItem)
         }
     } else {
-        endorsementListEl.innerHTML = "No items here... yet"
+        endorsementListEl.innerHTML = "No items here... yet"  // If no DB items then it displays this message
     }
 })
 
 
 // Functions
-function clearInputFieldEl() {
+
+function clearInputFieldEl() {  // Clears all input fields
     inputFieldEl.value = ""
     toFieldEl.value = ""
     fromFieldEl.value = ""
 }
 
-function clearEndorsementListEl() {
+function clearEndorsementListEl() {  // Clears endorsement list
     endorsementListEl.innerHTML = ""
 }
 
-function appendItemToEndorsementListEl(item) {
+function appendItemToEndorsementListEl(item) {  // Sets up endorsement list
     let endorsement = item[1]
 
     let newEl = document.createElement("li")  // Creates the list Element
@@ -79,8 +80,8 @@ function appendItemToEndorsementListEl(item) {
     toEl.textContent = `To ${endorsement.to}`
     toEl.classList.add('bold-text')
 
-    newEl.append(fromEl, messageEl, toEl)
-    if (endorsementListEl.firstChild) {
+    newEl.append(toEl, messageEl, fromEl)  // appends the newly created Elements in that order
+    if (endorsementListEl.firstChild) {  // places newest endorsement first
         endorsementListEl.insertBefore(newEl, endorsementListEl.firstChild);
     } else {
         endorsementListEl.append(newEl);

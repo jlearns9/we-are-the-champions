@@ -80,7 +80,7 @@ function appendItemToEndorsementListEl(item) {  // Sets up endorsement list
     toEl.textContent = `To ${endorsement.to}`
     toEl.classList.add('bold-text')
 
-    newEl.append(toEl, messageEl, fromEl)  // appends the newly created Elements in that order
+    newEl.append(toEl, messageEl, fromEl)  // appends the Elements in that order
     if (endorsementListEl.firstChild) {  // places newest endorsement first
         endorsementListEl.insertBefore(newEl, endorsementListEl.firstChild);
     } else {
